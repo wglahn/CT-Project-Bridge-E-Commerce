@@ -1,0 +1,39 @@
+{% extends 'base.html.j2'%}
+{% block title %}
+Listings
+{% endblock %}
+{% block content %}
+
+    <div class="row mt-4 mb-4">
+        <div class="col-3 mt-3">
+            {% if categories %}
+            <div class="card border-info mb-3" style="width: 18rem;">
+                <div class="card-header">
+                    Bridge Categrories
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for category in categories %}
+                    <li class="list-group-item"><a href="{{url_for('main.listings', id=category.id)}}">{{category.name}}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+        <div class="col">
+            <div class="row">
+                {% if items %}
+                {% for item in items %}
+                <div class="card border-info mb-3" style="max-width: 18rem; margin:1%; padding:0;">
+                <div class="card-header">{{item.name.title()}} Bridge</div>
+                <div class="card-body">
+                    <a href="{{url_for('main.item', id=item.id)}}"><img src="../static/images/{{item.img}}" class="card-img" style="height: 10rem;" alt="{{item.name}}"></a>
+                    <p class="card-text">PRICE: {{ "${:,.2f}".format(item.price) }}</p>
+                </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

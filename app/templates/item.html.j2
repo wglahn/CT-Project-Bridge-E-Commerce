@@ -1,0 +1,21 @@
+{% extends 'base.html.j2'%}
+{% block title %}
+Item
+{% endblock %}
+{% block content %}
+    {% if item %}
+        
+        <div class="row d-flex justify-content-center mt-4 mb-4">
+            <div class="col-6">
+                <div class="card-body bg-info">
+                    <img src="../static/images/{{item.img}}" class="card-img-top img-fluid" alt="{{item.name}}">
+                    <h5 class="card-title">{{item.name.title()}} Bridge</h5>
+                    <p class="card-text">{{item.desc}}</p>
+                    <p class="card-text">PRICE: {{"${:,.2f}".format(item.price)}}</p>
+                    <p class="card-text btn btn-light"><a href="{{url_for('main.additem', id=item.id)}}" style="width:100%;">Add To Cart</a></p>
+                </div>
+            </div>
+        </div>
+        
+    {% endif %}
+{% endblock %}

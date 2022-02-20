@@ -1,0 +1,58 @@
+{% extends 'base.html.j2'%}
+{% block title %}
+Cart
+{% endblock %}
+{% block content %}
+
+<div style="margin-top: 10%; height:70vh;">
+<div class="row d-flex justify-content-center mt-4">
+
+    <div class="col-5 card border-info ms-4">
+        <h1>Shopping Cart</h1>
+        <hr>
+
+        <div class="row">
+            <div class="col">
+            {% if items %}
+                {% for item in items %}
+                    <div class="row mb-1">
+                        <div class="col-8">
+                            <img src="../static/images/{{item.img}}" width="50" height="50" style="width:100px;" alt="{{item.name}}">
+                            {{item.name}} Bridge x {{item.quantity}}
+                        </div>
+                        <div class="col align-self-center">
+                            <a href="{{url_for('main.deleteitem', id=item.id)}}">
+                                <img src="../../static/images/trash-fill.svg" alt="Trash Can" width="16" height="16">
+                            </a>
+                        </div>
+                        <div class="col align-self-center">
+                        <div class="row justify-content-end" style="margin-right: 1%;">
+                            {{ "${:,.2f}".format(item.price*item.quantity) }} 
+                        </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h3>Your shopping cart is empty.</h3>
+            {% endif %}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <h3>Total</h3>
+            </div>
+            <div class="col">
+                <div class="row justify-content-end" style="margin-right: 1%;">
+                    {{ "${:,.2f}".format(total) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-info"><a href="{{url_for('main.deleteallitem')}}">Check Out</a></button>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

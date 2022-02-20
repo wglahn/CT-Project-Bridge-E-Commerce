@@ -1,0 +1,95 @@
+{% extends 'base.html.j2'%}
+{% block title %}
+    {% if current_user.is_authenticated %}
+    Edit Profile
+    {% else %}
+    Register
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<h1 class="mt-4 mb-4">
+    {% if current_user.is_authenticated %}
+    Edit Profile
+    {% else %}
+    Register
+    {% endif %}
+</h1>
+
+<div class="row font-weight-bold">
+<form class="row g-3" action="{{url_for('auth.edit_profile') if current_user.is_authenticated else url_for('auth.register')}}" method='POST'>
+    {{  form.hidden_tag()  }}
+
+    {# first_name #}
+    <div class="col-md-6">
+        {{form.first_name.label(class="form-label")}} 
+        {{form.first_name(class="form-control", value=current_user.first_name)}} 
+    </div>
+
+    {# last_name #}
+    <div class="col-md-6">
+        {{form.last_name.label(class="form-label")}} 
+        {{form.last_name(class="form-control", value=current_user.last_name)}}
+    </div> 
+
+    {# address #}
+    <div class="col-5">
+        {{form.address.label(class="form-label")}} 
+        {{form.address(class="form-control", value=current_user.address)}} 
+    </div>
+
+    {# city #}
+    <div class="col-md-3">
+        {{form.city.label(class="form-label")}} 
+        {{form.city(class="form-control", value=current_user.city)}} 
+    </div>
+
+    {# state #}
+    <div class="col-md-3">
+        {{form.state.label(class="form-label")}} 
+        {{form.state(class="form-control", value=current_user.state)}} 
+    </div>
+
+    {# zip_code #}
+    <div class="col-md-1">
+        {{form.zip_code.label(class="form-label")}} 
+        {{form.zip_code(class="form-control", value=current_user.zip_code)}}
+    </div> 
+
+    {# phone #}
+    <div class="col-md-2">
+        {{form.phone.label(class="form-label")}} 
+        {{form.phone(class="form-control", value=current_user.phone)}}
+    </div>
+
+    {# email #}
+    <div class="col-md-10">
+        {{form.email.label(class="form-label")}} 
+        {{form.email(class="form-control", value=current_user.email)}} 
+        {% for error in form.email.errors %}
+            <small style="color:red;">{{error}}</small><br>
+        {%endfor%}
+    </div>
+
+    {# password #}
+    <div class="col-md-6">
+        {{form.password.label(class="form-label")}} 
+        {{form.password(class="form-control")}}
+    </div>
+
+    {# confirm password #}
+    <div class="col-md-6">
+        {{form.confirm_password.label(class="form-label")}} 
+        {{form.confirm_password(class="form-control")}} 
+        {% for error in form.confirm_password.errors %}
+            <small style="color:red;">{{error}}</small><br>
+        {%endfor%}
+    </div>
+
+    {# submit #}
+    <div class="col-2 mt-4">
+        {{form.submit(class="btn btn-info form-control")}}
+    </div>
+</form>
+</div>
+{% endblock %}
